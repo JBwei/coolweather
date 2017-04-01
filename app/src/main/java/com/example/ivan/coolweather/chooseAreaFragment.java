@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,6 +119,7 @@ public class chooseAreaFragment extends Fragment
 			int provinceCode = selectedProvince.getProvinceCode();
 			int cityCode = selectedCity.getCityCode();
 			String address = "http://guolin.tech/api/china/" + provinceCode + "/" + cityCode;
+			Log.d("hello", address);
 			queryFromServer(address, COUNTY);
 		}
 	}
@@ -140,7 +142,8 @@ public class chooseAreaFragment extends Fragment
 		} else
 		{
 			int provinceCode = selectedProvince.getProvinceCode();
-			String address = "http://guolin.tech/api/china/" + provinceCode;
+			String address = "https://guolin.tech/api/china/" + provinceCode;
+			Log.d("hello", address);
 			queryFromServer(address, CITY);
 		}
 	}
@@ -161,6 +164,7 @@ public class chooseAreaFragment extends Fragment
 		} else
 		{
 			String address = "http://guolin.tech/api/china";
+			Log.d("hello", address);
 			queryFromServer(address, PROVINCE);
 		}
 	}
@@ -180,7 +184,7 @@ public class chooseAreaFragment extends Fragment
 					{
 						closeProgressDialog();
 						currentLevel = type;
-						Toast.makeText(getContext(), "加载失败，请检查你的网络。", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getContext(), "#@*%$^ 加 $# 载 <>? 失 #@! 败 #$", Toast.LENGTH_SHORT).show();
 					}
 				});
 			}

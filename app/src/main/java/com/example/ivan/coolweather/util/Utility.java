@@ -3,6 +3,8 @@ package com.example.ivan.coolweather.util;
 import com.example.ivan.coolweather.db.City;
 import com.example.ivan.coolweather.db.County;
 import com.example.ivan.coolweather.db.Province;
+import com.example.ivan.coolweather.gson.Weather;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +48,8 @@ public class Utility
 	
 	/**
 	 * 解析并处理服务器返回的市级数据。
-	 * @param response 服务器返回的JSON格式的String类型数据。
+	 *
+	 * @param response   服务器返回的JSON格式的String类型数据。
 	 * @param provinceId 此市所属省的id。
 	 * @return 处理成功返回true， 否则返回false。
 	 */
@@ -77,7 +80,8 @@ public class Utility
 	
 	/**
 	 * 解析并处理服务器返回的县级数据。
-	 * @param response 服务器返回的JSON格式的String类型数据。
+	 *
+	 * @param response   服务器返回的JSON格式的String类型数据。
 	 * @param provinceId 此县所属市的id。
 	 * @return 处理成功返回true， 否则返回false。
 	 */
@@ -105,5 +109,20 @@ public class Utility
 			}
 		}
 		return false;
+	}
+	
+	public static Weather handleWeatherResponse(String response)
+	{
+		try
+		{
+			JSONObject jsonObject = new JSONObject(response);
+			JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+			String weatherContent = jsonArray.getJSONObject(0).toString();
+			return new Gson().fromJson(weatherContent, Weather.class);
+		} catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

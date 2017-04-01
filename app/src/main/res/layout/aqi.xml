@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:id="@+id/aqi_layout"
 			  android:layout_margin="15dp"
 			  android:background="#8000"
 			  android:orientation="vertical"
@@ -32,7 +33,7 @@
 				android:layout_height="wrap_content">
 				
 				<TextView
-					android:text="0.00"
+					android:text="null"
 					android:textColor="#fff"
 					android:textSize="40sp"
 					android:layout_gravity="center"
@@ -63,7 +64,7 @@
 				android:layout_height="wrap_content">
 				
 				<TextView
-					android:text="0.00"
+					android:text="null"
 					android:layout_gravity="center"
 					android:textColor="#fff"
 					android:textSize="40sp"

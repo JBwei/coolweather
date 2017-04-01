@@ -1,5 +1,7 @@
 package com.example.ivan.coolweather.util;
 
+import android.util.Log;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -13,6 +15,7 @@ public class HttpUtil
 	{
 		OkHttpClient client = new OkHttpClient();
 		Request request = new Request.Builder().url(address).build();
+		Log.d("hello", address);
 		client.newCall(request).enqueue(callback);
 	}
 }

@@ -1,7 +1,12 @@
 package com.example.ivan.coolweather;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.ivan.coolweather.gson.Weather;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -11,5 +16,12 @@ public class MainActivity extends AppCompatActivity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		if (preferences.getString("weather", null) != null)
+		{
+			startActivity(new Intent(this, WeatherActivity.class));
+			finish();
+		}
 	}
 }

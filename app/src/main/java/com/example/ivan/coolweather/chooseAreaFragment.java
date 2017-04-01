@@ -1,6 +1,7 @@
 package com.example.ivan.coolweather;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.example.ivan.coolweather.db.City;
 import com.example.ivan.coolweather.db.County;
 import com.example.ivan.coolweather.db.Province;
+import com.example.ivan.coolweather.gson.Weather;
 import com.example.ivan.coolweather.util.HttpUtil;
 import com.example.ivan.coolweather.util.Utility;
 
@@ -83,6 +85,13 @@ public class chooseAreaFragment extends Fragment
 				{
 					selectedCity = cityList.get(position);
 					queryCounties();
+				}else if (currentLevel == COUNTY)
+				{
+					String weatherId = countyList.get(position).getWeatherId();
+					Intent intent = new Intent(getActivity(), WeatherActivity.class);
+					intent.putExtra("weather_id", weatherId);
+					startActivity(intent);
+					getActivity().finish();
 				}
 			}
 		});
@@ -142,7 +151,7 @@ public class chooseAreaFragment extends Fragment
 		} else
 		{
 			int provinceCode = selectedProvince.getProvinceCode();
-			String address = "https://guolin.tech/api/china/" + provinceCode;
+			String address = "http://guolin.tech/api/china/" + provinceCode;
 			Log.d("hello", address);
 			queryFromServer(address, CITY);
 		}
@@ -164,7 +173,6 @@ public class chooseAreaFragment extends Fragment
 		} else
 		{
 			String address = "http://guolin.tech/api/china";
-			Log.d("hello", address);
 			queryFromServer(address, PROVINCE);
 		}
 	}
@@ -177,6 +185,7 @@ public class chooseAreaFragment extends Fragment
 			@Override
 			public void onFailure(Call call, IOException e)
 			{
+				e.printStackTrace();
 				getActivity().runOnUiThread(new Runnable()
 				{
 					@Override
@@ -184,7 +193,7 @@ public class chooseAreaFragment extends Fragment
 					{
 						closeProgressDialog();
 						currentLevel = type;
-						Toast.makeText(getContext(), "#@*%$^ 加 $# 载 <>? 失 #@! 败 #$", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getContext(), "加载失败！", Toast.LENGTH_SHORT).show();
 					}
 				});
 			}

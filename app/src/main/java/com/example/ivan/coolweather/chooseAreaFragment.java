@@ -2,7 +2,9 @@ package com.example.ivan.coolweather;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -85,13 +87,25 @@ public class chooseAreaFragment extends Fragment
 				{
 					selectedCity = cityList.get(position);
 					queryCounties();
-				}else if (currentLevel == COUNTY)
+				} else if (currentLevel == COUNTY)
 				{
 					String weatherId = countyList.get(position).getWeatherId();
-					Intent intent = new Intent(getActivity(), WeatherActivity.class);
-					intent.putExtra("weather_id", weatherId);
-					startActivity(intent);
-					getActivity().finish();
+					if (getActivity() instanceof MainActivity)
+					{
+						SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+						edit.putString("weather_id", weatherId);
+						edit.apply();
+						Intent intent = new Intent(getActivity(), WeatherActivity.class);
+						intent.putExtra("weather_id", weatherId);
+						startActivity(intent);
+						getActivity().finish();
+					}else
+					{
+						WeatherActivity activity = (WeatherActivity) getActivity();
+						activity.drawerLayout.closeDrawers();
+						activity.refreshLayout.setRefreshing(true);
+						activity.requestWeather(weatherId);
+					}
 				}
 			}
 		});

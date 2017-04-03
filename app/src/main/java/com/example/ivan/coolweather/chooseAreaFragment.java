@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -142,7 +141,6 @@ public class chooseAreaFragment extends Fragment
 			int provinceCode = selectedProvince.getProvinceCode();
 			int cityCode = selectedCity.getCityCode();
 			String address = "http://guolin.tech/api/china/" + provinceCode + "/" + cityCode;
-			Log.d("hello", address);
 			queryFromServer(address, COUNTY);
 		}
 	}
@@ -166,7 +164,6 @@ public class chooseAreaFragment extends Fragment
 		{
 			int provinceCode = selectedProvince.getProvinceCode();
 			String address = "http://guolin.tech/api/china/" + provinceCode;
-			Log.d("hello", address);
 			queryFromServer(address, CITY);
 		}
 	}

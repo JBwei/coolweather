@@ -1,5 +1,6 @@
 package com.example.ivan.coolweather;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.ivan.coolweather.gson.Forecast;
 import com.example.ivan.coolweather.gson.Weather;
+import com.example.ivan.coolweather.service.AutoUpdateWeatherService;
 import com.example.ivan.coolweather.util.HttpUtil;
 import com.example.ivan.coolweather.util.Utility;
 
@@ -280,7 +282,6 @@ public class WeatherActivity extends AppCompatActivity
 								backgroundPic.setScaleX(x *= 0.999);
 								backgroundPic.setScaleY(y *= 0.999);
 							}
-							Log.d("hello", x + "");
 						}
 					});
 				}
@@ -290,6 +291,10 @@ public class WeatherActivity extends AppCompatActivity
 	
 	private void showWeatherInfo(Weather weather)
 	{
+		//启动自动更新天气服务。
+		Intent intent = new Intent(this, AutoUpdateWeatherService.class);
+		startService(intent);
+		
 		titleCity.setText(weather.basic.cityName);
 		titleUpdateTime.setText("更新时间：" + weather.basic.update.updateTime);
 		degreeText.setText(weather.now.temperature + "℃");

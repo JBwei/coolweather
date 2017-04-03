@@ -101,6 +101,9 @@ public class chooseAreaFragment extends Fragment
 					}else
 					{
 						WeatherActivity activity = (WeatherActivity) getActivity();
+						SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(activity).edit();
+						edit.putString("weather_id", weatherId);
+						edit.apply();
 						activity.drawerLayout.closeDrawers();
 						activity.refreshLayout.setRefreshing(true);
 						activity.requestWeather(weatherId);

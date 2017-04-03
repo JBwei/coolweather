@@ -128,7 +128,8 @@ public class WeatherActivity extends AppCompatActivity
 			@Override
 			public void onRefresh()
 			{
-				requestWeather(weatherId);
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this);
+				requestWeather(prefs.getString("weather_id", null));
 			}
 		});
 	}
